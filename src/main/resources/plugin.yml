@@ -1,0 +1,4 @@
+name: Clans
+version: '${project.version}'
+main: dev.subscripted.clans.Main
+api-version: '1.20'
