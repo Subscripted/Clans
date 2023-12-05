@@ -1,5 +1,6 @@
 package dev.subscripted.clans;
 
+import dev.subscripted.clans.modules.data.FileManager;
 import dev.subscripted.clans.registery.CommandRegistery;
 import dev.subscripted.clans.registery.ListenerRegistery;
 import lombok.Getter;
@@ -14,9 +15,9 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        initializeListeners();
+        instance = this;
+        initializeFiles();
         initializeCommands();
-
 
     }
 
@@ -32,5 +33,9 @@ public final class Main extends JavaPlugin {
     private static void initializeListeners(){
         ListenerRegistery listenerRegistery = new ListenerRegistery();
         listenerRegistery.initializeListeners(instance);
+    }
+    private static void initializeFiles(){
+        FileManager fileManager = new FileManager();
+        fileManager.setup(instance);
     }
 }

@@ -1,5 +1,6 @@
 package dev.subscripted.clans.modules.clans.commands;
 
+import dev.subscripted.clans.modules.clans.gui.ClanMenu;
 import dev.subscripted.clans.modules.clans.manager.ClanManager;
 import dev.subscripted.clans.modules.clans.pojo.Clan;
 import org.bukkit.command.Command;
@@ -31,6 +32,7 @@ public class MyClanCommand implements CommandExecutor {
 
         if (playerClan != null) {
             player.sendMessage("Du bist Mitglied im Clan: " + playerClan.getClanName());
+            ClanMenu.openMenu(player);
         } else {
             player.sendMessage("Du bist in keinem Clan.");
         }
