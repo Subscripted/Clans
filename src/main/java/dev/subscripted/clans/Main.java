@@ -13,7 +13,8 @@ public final class Main extends JavaPlugin {
 
 
     @Override
-    public void onEnable() {
+    public void onEnable() { 
+        instance = this;
         initializeListeners();
         initializeCommands();
 
