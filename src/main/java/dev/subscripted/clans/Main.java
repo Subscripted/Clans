@@ -1,5 +1,7 @@
 package dev.subscripted.clans;
 
+import dev.subscripted.clans.data.FileManager;
+import dev.subscripted.clans.modules.database.MySQL;
 import dev.subscripted.clans.registery.CommandRegistery;
 import dev.subscripted.clans.registery.ListenerRegistery;
 import lombok.Getter;
@@ -11,27 +13,28 @@ public final class Main extends JavaPlugin {
     private static Main instance;
 
 
-
     @Override
     public void onEnable() {
         instance = this;
+        initMySQLFile();
         initializeListeners();
         initializeCommands();
-
-
     }
 
     @Override
     public void onDisable() {
-
+        MySQL.close();
     }
 
-    private static void initializeCommands(){
-        CommandRegistery commandRegistery = new CommandRegistery();
-        commandRegistery.initializeCommands(instance);
+    private static void initializeCommands() {
+        CommandRegistery.initializeCommands(instance);
     }
-    private static void initializeListeners(){
-        ListenerRegistery listenerRegistery = new ListenerRegistery();
-        listenerRegistery.initializeListeners(instance);
+
+    private static void initializeListeners() {
+        ListenerRegistery.initializeListeners(instance);
+    }
+
+    private static void initMySQLFile() {
+        FileManager.setupFiles(instance);
     }
 }

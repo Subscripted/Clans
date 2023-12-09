@@ -12,7 +12,7 @@ public class CommandRegistery {
     private static ClanManager clanmanager;
     private static ClanInviteManager inviteManager;
 
-    public void initializeCommands(Main instance){
+    public static void initializeCommands(Main instance){
         instance.getCommand("myclan").setExecutor(new MyClanCommand(clanmanager));
         instance.getCommand("clan").setExecutor(new ClanInvite(clanmanager, inviteManager));
         instance.getCommand("clan").setTabCompleter(new ClanInvite(clanmanager, inviteManager));
