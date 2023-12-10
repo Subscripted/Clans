@@ -14,7 +14,8 @@ import org.bukkit.inventory.Inventory;
 public class ClanMenu {
 
     private static ClanManager clanManager;
-    private static final String CLAN_UI_TITLE = FileManager.getUIText(UIText.CLANUI_TITLE);
+    private static String CLAN_UI_TITLE = FileManager.getUIText(UIText.CLANUI_TITLE);
+    private static String YOU_ARE_MEMBER_IN_CLAN_NAME = FileManager.getUIText(UIText.YOU_ARE_MEMBER_IN_CLAN_NAME);
 
 
     public ClanMenu(ClanManager clanManager) {
@@ -27,7 +28,8 @@ public class ClanMenu {
         menu.setItem(4, playerHead.build());
         Clan playerClan = clanManager.getClan(player.getName());
         if (playerClan != null) {
-            ItemBuilder clanInfoItem = new ItemBuilder(Material.GREEN_WOOL).setDisplayName("Du bist Mitglied im Clan: " + playerClan.getClanName());
+            String PLACEHOLDER_CLAN_NAME = playerClan.getClanName();
+            ItemBuilder clanInfoItem = new ItemBuilder(Material.GREEN_WOOL).setDisplayName(YOU_ARE_MEMBER_IN_CLAN_NAME.replace("%clan_name%", PLACEHOLDER_CLAN_NAME));
             menu.setItem(6, clanInfoItem.build());
         } else {
             ItemBuilder noClanItem = new ItemBuilder(Material.RED_WOOL).setDisplayName("Du bist in keinem Clan.");

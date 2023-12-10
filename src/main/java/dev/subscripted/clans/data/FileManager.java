@@ -44,6 +44,9 @@ public class FileManager {
         if (!cfg.contains("ui.clanui_title")) {
             cfg.set("ui.clanui_title", "&c&lClans");
         }
+        if (!cfg.contains("ui.you_are_member_in_clan_name")){
+            cfg.set("ui.you_are_member_in_clan_name", "&7You are a Member in Clan '&c%clan_name%'&7!");
+        }
         try {
             cfg.save(configFile);
         } catch (IOException e) {

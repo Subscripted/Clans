@@ -2,6 +2,7 @@ package dev.subscripted.clans.modules.builder;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
+import lombok.SneakyThrows;
 import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -30,6 +31,7 @@ public class ItemBuilder {
 
     public ItemBuilder setDisplayName(String diplayName) {
         ItemMeta meta = item.getItemMeta();
+        assert meta != null;
         meta.setDisplayName(diplayName);
         item.setItemMeta(meta);
         return this;
@@ -37,6 +39,7 @@ public class ItemBuilder {
 
     public ItemBuilder setLore(List<String> lore) {
         ItemMeta meta = item.getItemMeta();
+        assert meta != null;
         meta.setLore(lore);
         item.setItemMeta(meta);
         return this;
@@ -44,6 +47,7 @@ public class ItemBuilder {
 
     public ItemBuilder addLoreLine(String loreLine) {
         ItemMeta meta = item.getItemMeta();
+        assert meta != null;
         List<String> lore = meta.getLore();
         if (lore == null) {
             lore = new ArrayList<>();
@@ -61,6 +65,7 @@ public class ItemBuilder {
 
     public ItemBuilder setUnbreakable(boolean unbreakable) {
         ItemMeta meta = item.getItemMeta();
+        assert meta != null;
         meta.setUnbreakable(unbreakable);
         item.setItemMeta(meta);
         return this;
@@ -68,6 +73,7 @@ public class ItemBuilder {
 
     public ItemBuilder setCustomModelData(int customModelData) {
         ItemMeta meta = item.getItemMeta();
+        assert meta != null;
         meta.setCustomModelData(customModelData);
         item.setItemMeta(meta);
         return this;
@@ -75,6 +81,7 @@ public class ItemBuilder {
 
     public ItemBuilder addItemFlag(ItemFlag itemFlag) {
         ItemMeta meta = item.getItemMeta();
+        assert meta != null;
         meta.addItemFlags(itemFlag);
         item.setItemMeta(meta);
         return this;
@@ -83,6 +90,7 @@ public class ItemBuilder {
     public ItemBuilder setLeatherArmorColor(Color color) {
         if (item.getType().name().contains("LEATHER_")) {
             LeatherArmorMeta meta = (LeatherArmorMeta) item.getItemMeta();
+            assert meta != null;
             meta.setColor(color);
             item.setItemMeta(meta);
         }
@@ -92,6 +100,7 @@ public class ItemBuilder {
     public ItemBuilder setMapId(int mapId) {
         if (item.getType() == Material.FILLED_MAP) {
             MapMeta meta = (MapMeta) item.getItemMeta();
+            assert meta != null;
             meta.setMapId(mapId);
             item.setItemMeta(meta);
         }
@@ -101,6 +110,7 @@ public class ItemBuilder {
     public ItemBuilder setPotionEffect(PotionEffectType type, int duration, int amplifier) {
         if (item.getType() == Material.POTION) {
             PotionMeta meta = (PotionMeta) item.getItemMeta();
+            assert meta != null;
             meta.addCustomEffect(new PotionEffect(type, duration, amplifier), true);
             item.setItemMeta(meta);
         }
@@ -111,6 +121,7 @@ public class ItemBuilder {
         if (glowing) {
             item.addUnsafeEnchantment(Enchantment.LURE, 1);
             ItemMeta meta = item.getItemMeta();
+            assert meta != null;
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             item.setItemMeta(meta);
         } else {
@@ -122,6 +133,7 @@ public class ItemBuilder {
     public ItemBuilder setSkullOwner(String playerName) {
         if (item.getType() == Material.PLAYER_HEAD || item.getType() == Material.PLAYER_WALL_HEAD) {
             SkullMeta meta = (SkullMeta) item.getItemMeta();
+            assert meta != null;
             meta.setOwner(playerName);
             item.setItemMeta(meta);
         }
@@ -132,6 +144,7 @@ public class ItemBuilder {
         if (item.getType() == Material.PLAYER_HEAD || item.getType() == Material.PLAYER_WALL_HEAD) {
             SkullMeta meta = (SkullMeta) item.getItemMeta();
             OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(playerUUID);
+            assert meta != null;
             meta.setOwningPlayer(offlinePlayer);
             item.setItemMeta(meta);
         }
@@ -176,9 +189,12 @@ public class ItemBuilder {
         return this;
     }
 
+
+    @SneakyThrows
     public ItemBuilder setSkullTexture(String texture) {
         if (item.getType() == Material.PLAYER_HEAD || item.getType() == Material.PLAYER_WALL_HEAD) {
             SkullMeta meta = (SkullMeta) item.getItemMeta();
+            assert meta != null;
             meta.setOwningPlayer(null);
             GameProfile profile = new GameProfile(UUID.randomUUID(), null);
             byte[] encodeData = Base64.getEncoder().encode(String.format("{textures:{SKIN:{url:\"%s\"", texture).getBytes());
@@ -195,6 +211,7 @@ public class ItemBuilder {
         }
         return this;
     }
+
     public ItemStack build() {
         return item;
     }
