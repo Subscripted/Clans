@@ -15,8 +15,8 @@ import java.util.List;
 
 public class ClanInvite implements CommandExecutor, TabCompleter {
 
-    private ClanManager clanManager;
-    private ClanInviteManager inviteManager;
+    private final ClanManager clanManager;
+    private final ClanInviteManager inviteManager;
 
     public ClanInvite(ClanManager clanManager, ClanInviteManager inviteManager) {
         this.clanManager = clanManager;

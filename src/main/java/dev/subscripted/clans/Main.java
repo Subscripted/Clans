@@ -16,7 +16,7 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-        initMySQLFile();
+        initFiles();
         initializeListeners();
         initializeCommands();
     }
@@ -34,7 +34,7 @@ public final class Main extends JavaPlugin {
         ListenerRegistery.initializeListeners(instance);
     }
 
-    private static void initMySQLFile() {
+    private static void initFiles() {
         FileManager.setupFiles(instance);
     }
 }

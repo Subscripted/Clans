@@ -14,8 +14,9 @@ import org.bukkit.inventory.Inventory;
 public class ClanMenu {
 
     private static ClanManager clanManager;
-    private static String CLAN_UI_TITLE = FileManager.getUIText(UIText.CLANUI_TITLE);
-    private static String YOU_ARE_MEMBER_IN_CLAN_NAME = FileManager.getUIText(UIText.YOU_ARE_MEMBER_IN_CLAN_NAME);
+    private static final String CLAN_UI_TITLE = FileManager.getUIText(UIText.CLANUI_TITLE);
+    private static final String YOU_ARE_MEMBER_IN_CLAN_NAME = FileManager.getUIText(UIText.YOU_ARE_MEMBER_IN_CLAN_NAME);
+    private static final String YOU_ARE_IN_NO_CLAN = FileManager.getUIText(UIText.YOU_ARE_IN_NO_CLAN);
 
 
     public ClanMenu(ClanManager clanManager) {
@@ -24,15 +25,18 @@ public class ClanMenu {
 
     public static void openMenu(Player player) {
         Inventory menu = Bukkit.createInventory(player, 9, CLAN_UI_TITLE);
-        ItemBuilder playerHead = new ItemBuilder(Material.PLAYER_HEAD).setSkullOwner(player.getName());
-        menu.setItem(4, playerHead.build());
+
         Clan playerClan = clanManager.getClan(player.getName());
+        String PLACEHOLDER_CLAN_NAME = playerClan.getClanName();
+        ItemBuilder playerHead = new ItemBuilder(Material.PLAYER_HEAD).setSkullOwner(player.getName());
+        ItemBuilder clanInfoItem = new ItemBuilder(Material.GREEN_WOOL).setDisplayName(YOU_ARE_MEMBER_IN_CLAN_NAME.replace("%clan_name%", PLACEHOLDER_CLAN_NAME));
+        ItemBuilder noClanItem = new ItemBuilder(Material.RED_WOOL).setDisplayName(YOU_ARE_IN_NO_CLAN);
+
+        menu.setItem(4, playerHead.build());
+
         if (playerClan != null) {
-            String PLACEHOLDER_CLAN_NAME = playerClan.getClanName();
-            ItemBuilder clanInfoItem = new ItemBuilder(Material.GREEN_WOOL).setDisplayName(YOU_ARE_MEMBER_IN_CLAN_NAME.replace("%clan_name%", PLACEHOLDER_CLAN_NAME));
             menu.setItem(6, clanInfoItem.build());
         } else {
-            ItemBuilder noClanItem = new ItemBuilder(Material.RED_WOOL).setDisplayName("Du bist in keinem Clan.");
             menu.setItem(6, noClanItem.build());
         }
         player.openInventory(menu);

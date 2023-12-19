@@ -10,7 +10,8 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-public class MyClanCommand implements CommandExecutor {
+public class
+MyClanCommand implements CommandExecutor {
 
     private ClanManager clanManager;
 
